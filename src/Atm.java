@@ -18,7 +18,7 @@ class SwingConsole{
 }
 
 public class Atm extends JFrame{
-    private Service service = new Service("E:\\java上机\\five\\src\\User.txt");
+    private Service service = new Service("User.txt");//输入你的User文件路径
     private Container container = this.getContentPane();
     private JPanel panel = new JPanel();
     private JTextField jTextField;//用户账号框
