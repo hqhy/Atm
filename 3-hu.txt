@@ -1,0 +1,17 @@
+Date:Thu Nov 29 21:03:12 CST 2018
+Type:draw
+Amount:263.0
+Balance:10000.0
+Description:draw
+
+Date:Thu Nov 29 21:03:33 CST 2018
+Type:save
+Amount:1000.0
+Balance:11000.0
+Description:save
+
+Date:Thu Nov 29 21:03:50 CST 2018
+Type:draw
+Amount:1000.0
+Balance:10000.0
+Description:draw
