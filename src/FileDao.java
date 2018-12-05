@@ -10,6 +10,7 @@ public class FileDao {
     private File file;
     private String filename;
     private List<Log> logs;
+    private List<String> message = new ArrayList<>();
     /**
      *  初始化用户列表list,从文件中读出用户信息，保存到list中
      * @param filename 文件名
@@ -26,7 +27,7 @@ public class FileDao {
      */
     private void ReadFile(){
         file = new File(this.filename);
-        User u = new User();
+        User u ;
         String[] info;
         String all = "";
         try {
@@ -40,6 +41,12 @@ public class FileDao {
             FileReader fileReader = new FileReader(filename);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             while ((all = bufferedReader.readLine()) != null){
+                if(all.startsWith("#")){
+                    message.add(all);
+                    continue;
+                }
+                if (all.equals(""))
+                    continue;
                 u = new User();
                 info = all.split(" ");
                 int i = 0;
@@ -74,6 +81,10 @@ public class FileDao {
         }
         try {
             FileWriter writer = new FileWriter(file);
+            for (String mess:message){
+                writer.write(mess);
+                writer.write('\n');
+            }
             for (User u:user){
                 writer.write(u.getId()+ " "+u.getName()+" "+u.getNickname()+" "+u.getPassword()+" "+u.getBalance());
                 writer.write("\n");
@@ -100,7 +111,9 @@ public class FileDao {
             FileReader fileReader = new FileReader(filename);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             String all= "";
-            while ((all=bufferedReader.readLine()) != null && !all.equals("")){
+            while ((all=bufferedReader.readLine()) != null){
+                if (all.equals(""))
+                    continue;
                 String[] info = all.split(":");
                 Log log = new Log();
                 log.setDate(info[1]);
@@ -109,7 +122,7 @@ public class FileDao {
                 log.setType(info[1].equals("save")?0:1);
                 all = bufferedReader.readLine();
                 info = all.split(":");
-                log.setAomunt(Double.parseDouble(info[1]));
+                log.setAmount(Double.parseDouble(info[1]));
                 all = bufferedReader.readLine();
                 info = all.split(":");
                 log.setBalance(Double.parseDouble(info[1]));
@@ -117,7 +130,6 @@ public class FileDao {
                 info = all.split(":");
                 log.setDescription(info[1]);
                 logs.add(log);
-                all = bufferedReader.readLine();
             }
         }catch (IOException e){
             e.printStackTrace();
@@ -148,7 +160,7 @@ public class FileDao {
                     String type = log.getType() == 1 ? "draw" : "save";
                     fileWriter.write("Date:" + log.getDate() + "\n"
                                          +"Type:" + type + "\n"
-                                         +"Amount:" + log.getAomunt() + "\n"
+                                         +"Amount:" + log.getAmount() + "\n"
                                          +"Balance:" + log.getBalance() + "\n"
                                          + "Description:" + log.getDescription()+ "\n");
                     fileWriter.write("\n");

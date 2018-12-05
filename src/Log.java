@@ -4,7 +4,7 @@ class Log {
     final static int draw = 1;//一代表取钱
     private String date;
     private int type;
-    private double Aomunt;
+    private double Amount;
     private double balance;
     private String Description;
 
@@ -24,12 +24,12 @@ class Log {
         this.type = type;
     }
 
-    double getAomunt() {
-        return Aomunt;
+    public double getAmount() {
+        return Amount;
     }
 
-    void setAomunt(double aomunt) {
-        Aomunt = aomunt;
+    public void setAmount(double amount) {
+        Amount = amount;
     }
 
     double getBalance() {

@@ -89,6 +89,7 @@ public class Atm extends JFrame{
             String actionCommand = e.getActionCommand();
             String name = jTextField.getText();
             String password = new String(passwordField.getPassword());
+            String money = jTextField.getText();
             if(actionCommand.equals("Log in")){
                 if (! flag && service.loginin(name,password)){
                     flag = true;
@@ -121,7 +122,6 @@ public class Atm extends JFrame{
             }
             if(actionCommand.equals("Save !")){
                 if(flag){
-                    String money = jTextField.getText();
                     int result = service.saveMoney(Double.parseDouble(money));
                     if(result == 0){
                         isOperator = true;
@@ -134,14 +134,15 @@ public class Atm extends JFrame{
             }
             if(actionCommand.equals("Draw !")){
                 if (flag){
-                    String money = new String(passwordField.getPassword());
                     int result = service.drawMoney(Double.parseDouble(money));
                     if(result == 0){
                         isOperator = true;
                         JOptionPane.showMessageDialog(null,"Draw Money Success");
                     }
-                    else
+                    if(result == -1)
                         JOptionPane.showMessageDialog(null,"Money should not greater than the you have!");
+                    if(result == -2)
+                        JOptionPane.showMessageDialog(null,"Money must be greater than 0");
                 }
                 else
                     JOptionPane.showMessageDialog(null,"Please Login first!");

@@ -89,19 +89,19 @@ public class Service {
     /**
      * 取钱
      * @param money 用户需要取的钱数
-     * @return - 1代表用户取的钱大于余额，0代表取钱成功
+     * @return - 1代表用户取的钱大于余额，0代表取钱成功 -2代表钱数小于0
      */
     public int drawMoney(double money){
         double mon = user.getBalance();
         if(mon < money)
             return -1;
-        else{
-            user.setBalance(user.getBalance()-money);
-            Log log = createLog("draw",money);
-            record.add(log);
-            history.add(log);
-            return  0;
-        }
+        if (money < 0)
+            return -2;
+        user.setBalance(user.getBalance()-money);
+        Log log = createLog("draw",money);
+        record.add(log);
+        history.add(log);
+        return  0;
     }
 
     /**
@@ -131,7 +131,7 @@ public class Service {
             type = log.getType() == 1 ? "draw" : "save";
             StringBuilder onelog = new StringBuilder("Date : " + log.getDate() + "\n"
                                                     + "Type : " + type + "\n"
-                                                    + "Amount : " + log.getAomunt() + "\n"
+                                                    + "Amount : " + log.getAmount() + "\n"
                                                     + "Balance : " + log.getBalance() + "\n"
                                                     + "Description : " + log.getDescription() + "\n");
             historyRecord.append(onelog);
@@ -151,7 +151,7 @@ public class Service {
         Date date = new Date();
         log.setDate(date.toString());
         log.setType((type.equals("draw"))?Log.draw:Log.save);
-        log.setAomunt(money);
+        log.setAmount(money);
         log.setBalance(user.getBalance());
         log.setDescription(type);
         return log;

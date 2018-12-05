@@ -1,0 +1,6 @@
+# 这是用户列表信息，可以选择以下用户进行登录
+# 如果想添加自己的登录用户，在后面添加或者修改这里的用户信息，格式如下
+# id nickname username password balance
+2 huang huang 111111 40.0
+1 wang wang 654321 10000.0
+3 hu hu 123456 10000.0
